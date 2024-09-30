@@ -128,20 +128,24 @@ vim.cmd('syntax on')
 
 -- Enable true color support
 
-require('tokyonight').setup({
-	style = "night", -- Choose from 'storm', 'night', 'moon', or 'day'
-	transparent = true, -- Enable transparency
-	terminal_colors = true, -- Apply colors to Neovim terminal
-	styles = {
-		sidebars = "transparent", -- Make sidebars (e.g., NERDTree) transparent
-		floats = "transparent", -- Make floating windows transparent
-	},
-})
-vim.cmd[[colorscheme tokyonight]]
+--require('tokyonight').setup({
+	--style = "night", -- Choose from 'storm', 'night', 'moon', or 'day'
+	--transparent = true, -- Enable transparency
+	--terminal_colors = true, -- Apply colors to Neovim terminal
+	--styles = {
+		--sidebars = "transparent", -- Make sidebars (e.g., NERDTree) transparent
+		--floats = "transparent", -- Make floating windows transparent
+	--},
+--})
+--vim.cmd[[colorscheme tokyonight]]
 
---vim.g.gruvbox_contrast_light = 'hard'
--- vim.cmd([[colorscheme gruvbox]])
--- vim.opt.termguicolors = true
+vim.opt.termguicolors = true
+vim.g.gruvbox_contrast_light = 'hard'
+vim.cmd([[colorscheme gruvbox]])
+vim.cmd([[
+colorscheme gruvbox
+highlight Normal guibg=NONE ctermbg=NONE
+]])
 
 
 -- Gruvbox and Rose-pine theme setup
@@ -271,6 +275,7 @@ local lspconfig = require("lspconfig")
 
 -- Standard on_attach function for LSP
 local on_attach = function(client, bufnr)
+    print("LSP attached to buffer " .. bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local opts = { noremap=true, silent=true }
 
@@ -288,7 +293,19 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 -- Setup for LSP servers
 lspconfig.rust_analyzer.setup { on_attach = on_attach, capabilities = capabilities } -- Rust LSP
 lspconfig.gopls.setup { on_attach = on_attach, capabilities = capabilities } -- Go LSP
-lspconfig.clangd.setup { on_attach = on_attach, capabilities = capabilities } -- C/C++ LSP
+lspconfig.clangd.setup { 
+	on_attach = on_attach, 
+	capabilities = capabilities,
+	-- Include the necessary flags and paths for GLFW
+	cmd = {
+        "clangd", 
+        "--header-insertion=never",
+        "--compile-commands-dir=.",
+        "-I/opt/homebrew/opt/glfw/include",  -- Include GLFW headers
+        "-L/opt/homebrew/opt/glfw/lib",      -- GLFW library path
+        "-std=c++20"                         -- C++ standard
+    }
+} -- C/C++ LSP
 lspconfig.tsserver.setup { on_attach = on_attach, capabilities = capabilities } -- TypeScript LSP
 lspconfig.pyright.setup { -- Python LSP
     on_attach = on_attach,
