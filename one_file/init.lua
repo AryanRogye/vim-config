@@ -125,8 +125,10 @@ vim.opt.showmode = false
 vim.opt.termguicolors = true
 vim.opt.laststatus = 2
 vim.cmd('syntax on')
+vim.g.have_nerd_font = true
+vim.opt.showmode = false
 
--- Enable true color support
+-- Tokyonight Theme
 
 --require('tokyonight').setup({
 	--style = "night", -- Choose from 'storm', 'night', 'moon', or 'day'
@@ -139,6 +141,9 @@ vim.cmd('syntax on')
 --})
 --vim.cmd[[colorscheme tokyonight]]
 
+
+-- Gruvbox Theme 
+
 vim.opt.termguicolors = true
 vim.g.gruvbox_contrast_light = 'hard'
 vim.cmd([[colorscheme gruvbox]])
@@ -148,7 +153,8 @@ highlight Normal guibg=NONE ctermbg=NONE
 ]])
 
 
--- Gruvbox and Rose-pine theme setup
+-- Rose Pine Theme
+
 -- require('rose-pine').setup({
     -- dark_variant = 'moon', -- Choose between 'main' and 'moon'
     -- disable_background = true, -- Disable background for transparency
@@ -157,10 +163,13 @@ highlight Normal guibg=NONE ctermbg=NONE
 -- vim.cmd('colorscheme rose-pine')
 
 -- Set Keybinds
-vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope live_grep<CR>', { noremap = true, silent = true })
+
 -- SETTING MAPLEADER
 vim.g.mapleader = " "
+
+-- Telescope
+vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope live_grep<CR>', { noremap = true, silent = true })
 
 -- REMAP FOR SOURCING
 vim.api.nvim_set_keymap('n', '<leader>s', ':so<CR>', { noremap = true, silent = true })
@@ -240,11 +249,11 @@ wk.register({
 
 -- Configure nvim-treesitter
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = {"go", "c"},
+    ensure_installed = {"go", "c", "rust", "css", "java", "javascript", "typescript", "zig"},
     sync_install = false,
     auto_install = false,
     highlight = {
-        enable = true,	
+        enable = true,
     }
 }
 
@@ -291,8 +300,14 @@ end
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Setup for LSP servers
-lspconfig.rust_analyzer.setup { on_attach = on_attach, capabilities = capabilities } -- Rust LSP
-lspconfig.gopls.setup { on_attach = on_attach, capabilities = capabilities } -- Go LSP
+
+-- Rust LSP
+lspconfig.rust_analyzer.setup { on_attach = on_attach, capabilities = capabilities } 
+
+-- Go LSP
+lspconfig.gopls.setup { on_attach = on_attach, capabilities = capabilities } 
+
+-- C/C++/Obj-C LSP
 lspconfig.clangd.setup { 
 	on_attach = on_attach, 
 	capabilities = capabilities,
@@ -305,8 +320,12 @@ lspconfig.clangd.setup {
         "-L/opt/homebrew/opt/glfw/lib",      -- GLFW library path
         "-std=c++20"                         -- C++ standard
     }
-} -- C/C++ LSP
+}
+
+-- TypeScript LSP
 lspconfig.tsserver.setup { on_attach = on_attach, capabilities = capabilities } -- TypeScript LSP
+
+-- Python LSP
 lspconfig.pyright.setup { -- Python LSP
     on_attach = on_attach,
     settings = {
@@ -316,10 +335,12 @@ lspconfig.pyright.setup { -- Python LSP
     },
     capabilities = capabilities,
 }
-lspconfig.jdtls.setup { -- Java LSP
+
+-- Java LSP
+lspconfig.jdtls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
-    cmd = { 'jdtls' }, -- You can specify the path if jdtls is not in your system's PATH
+    cmd = { 'jdtls' }, 
     root_dir = function(fname)
         return lspconfig.util.root_pattern('pom.xml', 'build.gradle', '.git')(fname) or vim.fn.getcwd()
     end,
@@ -345,12 +366,12 @@ cmp.setup({
         ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
         ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-        ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+        ['<C-y>'] = cmp.config.disable, 
         ['<C-e>'] = cmp.mapping({
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
         }),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ['<CR>'] = cmp.mapping.confirm({ select = true }), 
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
@@ -378,23 +399,25 @@ cmp.setup({
     }),
 })
 
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+-- This setup configures completion for when you are searching within buffers using the `/` command.
+-- It will suggest words or text that exist in the current buffer.
 cmp.setup.cmdline('/', {
     sources = {
-        { name = 'buffer' }
+        { name = 'buffer' }  -- Uses the content from the current buffer for suggestions.
     }
 })
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+-- This setup configures completion for when you're using the command-line (`:`).
+-- It first suggests file paths (`path`) and then commands and options (`cmdline`) as you type.
 cmp.setup.cmdline(':', {
     sources = cmp.config.sources({
-        { name = 'path' }
+        { name = 'path' }    -- Suggests paths for file/directory completion.
     }, {
-        { name = 'cmdline' }
+        { name = 'cmdline' } -- Provides completion for Vim commands.
     })
 })
 
--- Dart LSP setup
+-- Dart LSP
 lspconfig.dartls.setup{
     cmd = { "dart", "language-server", "--protocol=lsp" },
     filetypes = { "dart" },
