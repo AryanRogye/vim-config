@@ -99,8 +99,13 @@ For a full list of plugins, refer to the `plugins.lua` file.
 
 You can easily customize the configuration by editing the corresponding files:
 
+- **Plugins:
+    - U can add more plugins in the `new-organized/lua/plugins.lua` file
 - **Themes**: Modify `init.lua` to switch between Gruvbox, Rose Pine, and Tokyo Night make sure to have the other 2 commented.
     - U can add more themes inside the `new-organized/lua/themes.lua` file
+    - If u do this then u must add the plugin in `new-organized/lua/plugins.lua` file
 - **Key Mappings**: Change or add new keybindings in `keymaps.lua`.
-- **LSP**: Add or remove language servers in `lsp.lua` by updating the `ensure_installed` section and configuring the LSP options.
+- **LSP**: 
+    - To add or remove language servers, edit the `new-organized/lua/lsp.lua` file by updating the `ensure_installed` section and configuring the LSP options.
+    - Alternatively, you can open Mason by pressing **Space + m** (or by typing `:Mason` in Neovim) to manage and install language servers interactively.
 - **Autocompletion**: Modify `cmp_config.lua` to customize the completion engine settings.
