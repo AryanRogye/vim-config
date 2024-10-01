@@ -110,6 +110,7 @@ lazy.setup({
 		priority = 1000,
 		opts = {},     	
 	},
+	{ 'tpope/vim-commentary', lazy = false },
 })
 if lazy_bootstrap then
     require('lazy').sync()

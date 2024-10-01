@@ -93,6 +93,7 @@ Here is a quick overview of some key plugins and their purposes:
 - **Prettier**: Code formatter for JavaScript and TypeScript.
 - **Noice.nvim**: Enhances the Neovim UI for messages and commands.
 - **Which-Key**: Displays available keybindings in Neovim.
+- **Commentary**: Toggle comments with simple key mappings like gcc and gc
 
 For a full list of plugins, refer to the `plugins.lua` file.
 
@@ -118,6 +119,10 @@ The key mappings are defined in the `new-organized/lua/keymaps.lua` file. You ca
 - **NERDTree**:
     - **Control + n**: Toggle NERDTree (file explorer)
     - **a**: Add a file or directory inside NERDTree (automatically prepends the necessary `m` command).
+
+- **Commentary**:
+    - **gcc**: Toggle comments for the current line.
+    - **gc**: Toggle comments for a selection or motion
   
 - **Telescope**:
     - **Space + ff**: Find files using Telescope.

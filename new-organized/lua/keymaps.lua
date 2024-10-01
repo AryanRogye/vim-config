@@ -67,7 +67,13 @@ wk.register({
     -- Prettier for formatting
     ["<leader>p"] = { "<cmd>Prettier<cr>", "Prettier Format" },
     -- Utility
-    ["<leader>?"] = { function() wk.show() end, "Show all mappings" }
+    ["<leader>?"] = { function() wk.show() end, "Show all mappings" },
+	-- Commentary
+	["<leader>c"] = {
+		name = "Comment",
+		c = { "gcc", "Toggle Line Comment" },
+		m = { "gc", "Comment Motion" },
+	},
 })
 
 wk.register({
