@@ -1,4 +1,3 @@
-
 -- If plugins is not found
 local status_ok, err = pcall(require, 'plugins')
 if not status_ok then
@@ -6,6 +5,13 @@ if not status_ok then
     vim.api.nvim_err_writeln("Details: " .. err)
 end
 
+-- Load LSP
+local status_ok, lsp = pcall(require, 'lsp')
+if not status_ok then
+    vim.api.nvim_err_writeln("Error loading lsp.lua: " .. lsp)
+end
+
+-- Load Themes Configuration
 local themes_ok, err = pcall(require, 'themes')
 if not themes_ok then
     vim.api.nvim_err_writeln("Error: Could not load themes.lua. Please make sure the 'themes.lua' file exists in the correct location.")
@@ -23,12 +29,41 @@ else
     vim.api.nvim_err_writeln("Details: " .. err)
 end
 
+-- Load Keymaps
+local status_ok, keymaps = pcall(require, 'keymaps')
+if not status_ok then
+    vim.api.nvim_err_writeln("Error loading keymaps.lua: " .. keymaps)
+end
+
+-- Load Telescope Config
+local status_ok, telescope = pcall(require, 'telescope_config')
+if not status_ok then
+    vim.api.nvim_err_writeln("Error loading telescope_config.lua: " .. telescope)
+end
+
+-- Load Treesitter Config
+local status_ok, treesitter = pcall(require, 'treesitter_config')
+if not status_ok then
+    vim.api.nvim_err_writeln("Error loading treesitter_config.lua: " .. treesitter)
+end
+
+-- Load CMP Config
+local status_ok, cmp = pcall(require, 'cmp_config')
+if not status_ok then
+    vim.api.nvim_err_writeln("Error loading cmp_config.lua: " .. cmp)
+end
+
+-- Load Prettier Config
+local status_ok, prettier_config = pcall(require, 'prettier_config')
+if not status_ok then
+    vim.api.nvim_err_writeln("Error loading prettier_config.lua: " .. prettier_config)
+end
+
 -- The 3 main themes I use
 ----------------------------
 -- themes.load_tokyonight()
 themes.load_gruvbox()
 -- themes.load_rose_pine()
-
 
 vim.opt.wrap = false
 vim.opt.tabstop = 4

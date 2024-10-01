@@ -17,14 +17,10 @@ if not status_ok then return end
 lazy.setup({
     -- NERDTREE: A file explorer for navigating your file system in Neovim.
     {'preservim/nerdtree'},
-
     -- Mason: Manages external tools such as LSP servers, linters, formatters.
     {'williamboman/mason.nvim'},
-
     -- Mason LSPconfig: Bridges between Mason and Neovim LSPconfig.
     {'williamboman/mason-lspconfig.nvim'},
-
-    -- LSPconfig: Provides configurations for Neovim's built-in language server client.
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
@@ -33,49 +29,35 @@ lazy.setup({
 			lspconfig.sourcekit.setup {}
 		end,
 	},
-
     -- Telescope: A fuzzy finder for searching files, text, or Neovim buffers.
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.8',
         dependencies = { 'nvim-lua/plenary.nvim' } -- Plenary is required for Telescope.
     },
-
     -- nvim-cmp: Autocompletion plugin for Neovim.
     {'hrsh7th/nvim-cmp'},
-
     -- nvim-cmp source for LSP completions.
     {'hrsh7th/cmp-nvim-lsp'},
-
     -- nvim-cmp source for buffer words completion.
     {'hrsh7th/cmp-buffer'},
-
     -- nvim-cmp source for filesystem paths.
     {'hrsh7th/cmp-path'},
-
     -- nvim-cmp source for command-line completion.
     {'hrsh7th/cmp-cmdline'},
-
     -- Luasnip source for nvim-cmp (snippets integration).
     {'saadparwaiz1/cmp_luasnip'},
-
     -- LuaSnip: Snippets engine for Neovim.
     {'L3MON4D3/LuaSnip'},
-
     -- A collection of snippets for various languages.
     {'rafamadriz/friendly-snippets'},
-
     -- nvim-autopairs: Automatically close brackets, parentheses, etc., when typing.
     {'windwp/nvim-autopairs', event = "InsertEnter", config = true},
-
     -- Gruvbox: A popular color scheme for Neovim.
     {'morhetz/gruvbox'},
-
     -- Rose-pine: Another color scheme for Neovim.
     { "rose-pine/neovim", name = "rose-pine" },
-
     -- nvim-treesitter: Provides advanced syntax highlighting based on parsing code trees.
     {'nvim-treesitter/nvim-treesitter'},
-
     -- Noice: Enhances the command line and message output in Neovim.
     {"folke/noice.nvim", event = "VeryLazy",
         opts = {},
@@ -84,7 +66,6 @@ lazy.setup({
             "rcarriga/nvim-notify",   -- A notification system used by Noice.
         }
     },
-
     -- Which-Key: Displays available keybindings in Neovim when a key is pressed.
     {"folke/which-key.nvim", event = "VeryLazy",
         init = function()
@@ -93,16 +74,12 @@ lazy.setup({
         end,
         opts = {}
     },
-
     -- vim-prettier: Integration for Prettier, a code formatter, in Neovim.
     {'prettier/vim-prettier', run = 'yarn install --frozen-lockfile --production'},
-
     -- vim-jsx-pretty: Syntax highlighting for JSX and TSX (React, TypeScript files).
     {'MaxMEllon/vim-jsx-pretty'},
-
     -- Neomake: Asynchronous linting and build system integration for Neovim.
     {'neomake/neomake'},
-
     -- VimTeX: Provides LaTeX editing support in Neovim.
     {
         'lervag/vimtex',
@@ -126,7 +103,6 @@ lazy.setup({
             vim.g.vimtex_view_skim_activate = 1
         end
     },
-
     -- TokyoNight: Another color scheme for Neovim with a high priority to load first.
 	{
 		"folke/tokyonight.nvim",
@@ -135,7 +111,6 @@ lazy.setup({
 		opts = {},     	
 	},
 })
-
 if lazy_bootstrap then
     require('lazy').sync()
 end
