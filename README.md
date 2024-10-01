@@ -11,8 +11,6 @@ This is a Neovim configuration with organized plugins and settings, using `lazy.
 - [Usage](#usage)
 - [Plugins](#plugins)
 - [Customization](#customization)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
