@@ -34,7 +34,7 @@ This is a Neovim configuration with organized plugins and settings, using `lazy.
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/AryanRogye/vim-config.git ~/.config/nvim
+   git clone https://github.com/aryanrogye/vim-config.git ~/.config/nvim
 
 2. install lazy.nvim: 
    ```bash
