@@ -11,11 +11,8 @@ vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope live_grep<CR>', { noremap
 -- REMAP FOR SOURCING
 vim.api.nvim_set_keymap('n', '<leader>s', ':so<CR>', { noremap = true, silent = true })
 
--- NERDTree Keymap
-vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTreeToggle<CR>', { noremap = true, silent = true })
-vim.cmd([[	
-  autocmd FileType nerdtree nnoremap <buffer> a :call feedkeys("m")<CR>:call feedkeys("a")<CR>
-]])
+-- NVIM Tree Keymap
+vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 
 -- KEYMAP FOR LAZY
 vim.api.nvim_set_keymap('n', '<leader>l', ':Lazy<CR>', { noremap = true, silent = true })
@@ -77,7 +74,7 @@ wk.register({
 })
 
 wk.register({
-    ["<C-n>"] = { "<cmd>NERDTreeToggle<cr>", "Toggle NERDTree" },
+    ["<C-n>"] = { "<cmd>NvimTreeToggle<cr>", "Toggle NvimTree" },
 }, { mode = 'n' })
 
 -- Mouse-based command-click like functionality

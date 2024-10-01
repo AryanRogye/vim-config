@@ -83,7 +83,7 @@ This is a Neovim configuration with organized plugins and settings, using `lazy.
 
 Here is a quick overview of some key plugins and their purposes:
 
-- **NERDTree**: A file explorer tree for Neovim.
+- **NVIM-Tree**: A file explorer tree for Neovim (Changed From NERDTree).
 - **Mason.nvim**: Manages external LSP servers, linters, and formatters.
 - **LSPconfig**: Integrates Neovim's built-in LSP support with Mason.
 - **nvim-cmp**: Autocompletion engine with various sources (LSP, buffer, path, etc.).
@@ -116,9 +116,8 @@ You can easily customize the configuration by editing the corresponding files:
 
 The key mappings are defined in the `new-organized/lua/keymaps.lua` file. You can modify or add new keybindings as per your preferences. Below are the default mappings:
 
-- **NERDTree**:
+- **NVIM-Tree**:
     - **Control + n**: Toggle NERDTree (file explorer)
-    - **a**: Add a file or directory inside NERDTree (automatically prepends the necessary `m` command).
 
 - **Commentary**:
     - **gcc**: Toggle comments for the current line.
