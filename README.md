@@ -11,6 +11,7 @@ This is a Neovim configuration with organized plugins and settings, using `lazy.
 - [Usage](#usage)
 - [Plugins](#plugins)
 - [Customization](#customization)
+- [Key Mappings](#key-mappings)
 
 ## Features
 
@@ -109,3 +110,45 @@ You can easily customize the configuration by editing the corresponding files:
     - To add or remove language servers, edit the `new-organized/lua/lsp.lua` file by updating the `ensure_installed` section and configuring the LSP options.
     - Alternatively, you can open Mason by pressing **Space + m** (or by typing `:Mason` in Neovim) to manage and install language servers interactively.
 - **Autocompletion**: Modify `cmp_config.lua` to customize the completion engine settings.
+
+## Key Mappings
+
+The key mappings are defined in the `new-organized/lua/keymaps.lua` file. You can modify or add new keybindings as per your preferences. Below are the default mappings:
+
+- **NERDTree**:
+    - **Control + n**: Toggle NERDTree (file explorer)
+    - **a**: Add a file or directory inside NERDTree (automatically prepends the necessary `m` command).
+  
+- **Telescope**:
+    - **Space + ff**: Find files using Telescope.
+    - **Space + fg**: Search for text using live grep with Telescope.
+    - **Space + fb**: Search for buffers using Telescope.
+    - **Space + fh**: Search for help tags using Telescope.
+
+- **VimTeX**:
+    - **Space + ll**: Compile the current LaTeX file.
+    - **Space + lv**: View the compiled PDF.
+    - **Space + lk**: Stop the compilation process.
+    - **Space + lo**: Show LaTeX compilation errors.
+
+- **LSP (Language Server Protocol)**:
+    - **Space + ld**: Go to definition.
+    - **Space + lr**: Find references.
+    - **Space + li**: Go to implementation.
+    - **Space + lk**: Hover for documentation.
+    - **Space + ls**: Signature help.
+    - **Space + ln**: Rename symbol.
+    - **Space + la**: Show available code actions.
+
+- **Miscellaneous**:
+    - **Space + l**: Open Lazy (plugin manager).
+    - **Space + m**: Open Mason (LSP server manager).
+    - **Space + p**: Format the current buffer using Prettier.
+    - **Space + s**: Source the current file.
+    - **Control + Left Click**: Go to the definition of a symbol.
+    - **[d**: Jump to the previous diagnostic.
+    - **]d**: Jump to the next diagnostic.
+    - **Space + e**: Open line diagnostics.
+    - **Space + q**: Open the quickfix list.
+
+To add new key mappings, modify the `keymaps.lua` file.
