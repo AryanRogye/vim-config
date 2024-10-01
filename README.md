@@ -99,7 +99,7 @@ For a full list of plugins, refer to the `plugins.lua` file.
 
 You can easily customize the configuration by editing the corresponding files:
 
-- **Plugins:
+- **Plugins**:
     - U can add more plugins in the `new-organized/lua/plugins.lua` file
 - **Themes**: Modify `init.lua` to switch between Gruvbox, Rose Pine, and Tokyo Night make sure to have the other 2 commented.
     - U can add more themes inside the `new-organized/lua/themes.lua` file
