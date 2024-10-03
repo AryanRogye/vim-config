@@ -15,16 +15,18 @@ if not status_ok then return end
 
 -- Installing plugins here
 lazy.setup({
-	-- NVIM-TREE ICONS
+	-- NERDTREE ICONS: to show icons on nerdtree
 	{
 		'kyazdani42/nvim-tree.lua',
 		requires = {
-			'kyazdani42/nvim-web-devicons',
+			'kyazdani42/nvim-web-devicons', -- optional, for file icons
 		},
 		config = function()
-			require('nvimtree_config')
+			require('nvimtree_config') -- Load your config from the separate file
 		end,
 	},
+    -- NERDTREE: A file explorer for navigating your file system in Neovim.
+    -- {'preservim/nerdtree'},
     -- Mason: Manages external tools such as LSP servers, linters, formatters.
     {'williamboman/mason.nvim'},
     -- Mason LSPconfig: Bridges between Mason and Neovim LSPconfig.
@@ -33,13 +35,14 @@ lazy.setup({
 		"neovim/nvim-lspconfig",
 		config = function()
 			local lspconfig = require('lspconfig')
+			-- Configuring the SourceKit language server (for Swift/Objective-C)
 			lspconfig.sourcekit.setup {}
 		end,
 	},
     -- Telescope: A fuzzy finder for searching files, text, or Neovim buffers.
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.8',
-        dependencies = { 'nvim-lua/plenary.nvim' } 
+        dependencies = { 'nvim-lua/plenary.nvim' } -- Plenary is required for Telescope.
     },
     -- nvim-cmp: Autocompletion plugin for Neovim.
     {'hrsh7th/nvim-cmp'},
@@ -69,8 +72,8 @@ lazy.setup({
     {"folke/noice.nvim", event = "VeryLazy",
         opts = {},
         dependencies = {
-            "MunifTanjim/nui.nvim",   
-            "rcarriga/nvim-notify",  
+            "MunifTanjim/nui.nvim",   -- Required UI component for Noice.
+            "rcarriga/nvim-notify",   -- A notification system used by Noice.
         }
     },
     -- Which-Key: Displays available keybindings in Neovim when a key is pressed.
@@ -90,13 +93,13 @@ lazy.setup({
     -- VimTeX: Provides LaTeX editing support in Neovim.
     {
         'lervag/vimtex',
-        ft = 'tex',  
+        ft = 'tex',  -- Only loads for LaTeX files (.tex).
         config = function()
-            vim.g.tex_flavor = 'latex'                
-            vim.g.vimtex_view_method = 'skim'         
-            vim.g.vimtex_quickfix_mode = 0            
+            vim.g.tex_flavor = 'latex'                -- Set LaTeX as the default flavor.
+            vim.g.vimtex_view_method = 'skim'         -- Use Skim as the PDF viewer.
+            vim.g.vimtex_quickfix_mode = 0            -- Disable quickfix mode by default.
             vim.g.vimtex_compiler_latexmk = {
-                build_dir = 'build',                  
+                build_dir = 'build',                  -- Set a custom build directory.
                 options = {
                     '-shell-escape',
                     '-verbose',
@@ -105,6 +108,7 @@ lazy.setup({
                     '-synctex=1'
                 }
             }
+            -- Skim PDF viewer SyncTeX integration.
             vim.g.vimtex_view_skim_sync = 1
             vim.g.vimtex_view_skim_activate = 1
         end
@@ -117,6 +121,8 @@ lazy.setup({
 		opts = {},     	
 	},
 	{ 'tpope/vim-commentary', lazy = false },
+	{'terryma/vim-smooth-scroll'},
+	{'tpope/vim-surround'},
 })
 if lazy_bootstrap then
     require('lazy').sync()

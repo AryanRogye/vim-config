@@ -1,4 +1,4 @@
--- If plugins is not found
+-- If plugins is not found --
 local status_ok, err = pcall(require, 'plugins')
 if not status_ok then
     vim.api.nvim_err_writeln("Error: Could not load plugins.lua. Please make sure the 'plugins.lua' file exists in the correct location.")
@@ -58,6 +58,12 @@ local status_ok, prettier_config = pcall(require, 'prettier_config')
 if not status_ok then
     vim.api.nvim_err_writeln("Error loading prettier_config.lua: " .. prettier_config)
 end
+
+-- Load NerdTree Icon
+-- local status_ok, nerdtree_config = pcall(require, 'nerdtree_config')
+-- if not status_ok then
+-- 	vim.api.nvim_err_writeln("Error loading nerdtree_config" .. nerdtree_config)
+-- end
 
 -- The 3 main themes I use
 ----------------------------

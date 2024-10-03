@@ -4,12 +4,24 @@ vim.cmd([[
   autocmd FileType nerdtree setlocal modifiable
 ]])
 
+-- Smooth Scrolling
+vim.api.nvim_set_keymap('n', '<C-u>', ':call smooth_scroll#up(&scroll, 0, 2)<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-d>', ':call smooth_scroll#down(&scroll, 0, 2)<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-b>', ':call smooth_scroll#up(&scroll*2, 0, 4)<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-f>', ':call smooth_scroll#down(&scroll*2, 0, 4)<CR>', { noremap = true, silent = true })
+
 -- Telescope Keymaps
 vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope live_grep<CR>', { noremap = true, silent = true })
 
 -- REMAP FOR SOURCING
 vim.api.nvim_set_keymap('n', '<leader>s', ':so<CR>', { noremap = true, silent = true })
+
+-- NERDTree Keymap
+-- vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTreeToggle<CR>', { noremap = true, silent = true })
+-- vim.cmd([[	
+--   autocmd FileType nerdtree nnoremap <buffer> a :call feedkeys("m")<CR>:call feedkeys("a")<CR>
+-- ]])
 
 -- NVIM Tree Keymap
 vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
@@ -42,6 +54,11 @@ wk.register({
         b = { "<cmd>Telescope buffers<cr>", "Find Buffers" },
         h = { "<cmd>Telescope help_tags<cr>", "Help Tags" },
     },
+	-- Smooth Scrolling Keybindings
+	["<C-u>"] = { ":call smooth_scroll#up(&scroll, 0, 2)<CR>", "Smooth Scroll Up" },
+	["<C-d>"] = { ":call smooth_scroll#down(&scroll, 0, 2)<CR>", "Smooth Scroll Down" },
+	["<C-b>"] = { ":call smooth_scroll#up(&scroll*2, 0, 4)<CR>", "Smooth Scroll Page Up" },
+	["<C-f>"] = { ":call smooth_scroll#down(&scroll*2, 0, 4)<CR>", "Smooth Scroll Page Down" },
     -- LSP Mappings
     ["<leader>l"] = {
         name = "LSP",
@@ -72,6 +89,10 @@ wk.register({
 		m = { "gc", "Comment Motion" },
 	},
 })
+
+-- wk.register({
+--     ["<C-n>"] = { "<cmd>NERDTreeToggle<cr>", "Toggle NERDTree" },
+-- }, { mode = 'n' })
 
 wk.register({
     ["<C-n>"] = { "<cmd>NvimTreeToggle<cr>", "Toggle NvimTree" },
