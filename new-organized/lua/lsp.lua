@@ -56,4 +56,14 @@ lspconfig.ts_ls.setup { on_attach = on_attach, capabilities = capabilities }  --
 lspconfig.pyright.setup { on_attach = on_attach, capabilities = capabilities }   -- Python
 lspconfig.jdtls.setup { on_attach = on_attach, capabilities = capabilities }     -- Java
 lspconfig.dartls.setup { on_attach = on_attach, capabilities = capabilities }    -- Dart
-lspconfig.sourcekit.setup { capabilities = capabilities }                       -- Swift
+
+local function swift_root_dir(fname)
+    local root = lspconfig.util.root_pattern('Package.swift', 'project.pbxproj', '.git')(fname)
+    return root or vim.fn.getcwd()
+end
+
+lspconfig.sourcekit.setup({
+    on_attach = on_attach,        
+    capabilities = capabilities,  
+    root_dir = swift_root_dir,    
+})
