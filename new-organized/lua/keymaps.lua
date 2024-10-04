@@ -4,11 +4,19 @@ vim.cmd([[
   autocmd FileType nerdtree setlocal modifiable
 ]])
 
+
 -- Smooth Scrolling
 vim.api.nvim_set_keymap('n', '<C-u>', ':call smooth_scroll#up(&scroll, 0, 2)<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-d>', ':call smooth_scroll#down(&scroll, 0, 2)<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-b>', ':call smooth_scroll#up(&scroll*2, 0, 4)<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-f>', ':call smooth_scroll#down(&scroll*2, 0, 4)<CR>', { noremap = true, silent = true })
+
+-- Harpoon (Just Testing For Now)
+vim.api.nvim_set_keymap('n', '<leader>a', ':lua require("harpoon.mark").add_file()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>h', ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>r', ':lua require("harpoon.mark").rm_file()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>c', ':lua require("harpoon.mark").clear_all()<CR>', { noremap = true, silent = true })
+
 
 -- Telescope Keymaps
 vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', { noremap = true, silent = true })

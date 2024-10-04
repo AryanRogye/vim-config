@@ -123,6 +123,7 @@ lazy.setup({
 	{ 'tpope/vim-commentary', lazy = false },
 	{'terryma/vim-smooth-scroll'},
 	{'tpope/vim-surround'},
+	{ 'ThePrimeagen/harpoon', config = function() require('harpoon').setup() end },
 })
 if lazy_bootstrap then
     require('lazy').sync()
