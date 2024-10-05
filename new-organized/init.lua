@@ -1,3 +1,6 @@
+-- Some Reason I need this up here
+vim.opt.termguicolors = true
+
 -- If plugins is not found --
 local status_ok, err = pcall(require, 'plugins')
 if not status_ok then
@@ -71,6 +74,7 @@ end
 themes.load_gruvbox()
 -- themes.load_rose_pine()
 
+
 vim.opt.wrap = false
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -86,3 +90,5 @@ vim.opt.laststatus = 2
 vim.cmd('syntax on')
 vim.g.have_nerd_font = true
 vim.opt.showmode = false
+
+

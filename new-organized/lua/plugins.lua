@@ -15,30 +15,30 @@ if not status_ok then return end
 
 -- Installing plugins here
 lazy.setup({
-	-- NERDTREE ICONS: to show icons on nerdtree
-	{
-		'kyazdani42/nvim-tree.lua',
-		requires = {
-			'kyazdani42/nvim-web-devicons', -- optional, for file icons
-		},
-		config = function()
-			require('nvimtree_config') -- Load your config from the separate file
-		end,
-	},
+    -- NERDTREE ICONS: to show icons on nerdtree
+    {
+        'kyazdani42/nvim-tree.lua',
+        requires = {
+            'kyazdani42/nvim-web-devicons', -- optional, for file icons
+        },
+        config = function()
+            require('nvimtree_config') -- Load your config from the separate file
+        end,
+    },
     -- NERDTREE: A file explorer for navigating your file system in Neovim.
     -- {'preservim/nerdtree'},
     -- Mason: Manages external tools such as LSP servers, linters, formatters.
     {'williamboman/mason.nvim'},
     -- Mason LSPconfig: Bridges between Mason and Neovim LSPconfig.
     {'williamboman/mason-lspconfig.nvim'},
-	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			local lspconfig = require('lspconfig')
-			-- Configuring the SourceKit language server (for Swift/Objective-C)
-			lspconfig.sourcekit.setup {}
-		end,
-	},
+    {
+        "neovim/nvim-lspconfig",
+        config = function()
+            local lspconfig = require('lspconfig')
+            -- Configuring the SourceKit language server (for Swift/Objective-C)
+            lspconfig.sourcekit.setup {}
+        end,
+    },
     -- Telescope: A fuzzy finder for searching files, text, or Neovim buffers.
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.8',
@@ -114,16 +114,19 @@ lazy.setup({
         end
     },
     -- TokyoNight: Another color scheme for Neovim with a high priority to load first.
-	{
-		"folke/tokyonight.nvim",
-		lazy = false,
-		priority = 1000,
-		opts = {},     	
-	},
-	{ 'tpope/vim-commentary', lazy = false },
-	{'terryma/vim-smooth-scroll'},
-	{'tpope/vim-surround'},
-	{ 'ThePrimeagen/harpoon', config = function() require('harpoon').setup() end },
+    {
+        "folke/tokyonight.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {},     	
+    },
+    { 'tpope/vim-commentary', lazy = false },
+    {'terryma/vim-smooth-scroll'},
+    {'tpope/vim-surround'},
+    { 'ThePrimeagen/harpoon', config = function() require('harpoon').setup() end },
+    { 'ap/vim-css-color' },
+    { 'tpope/vim-sleuth' },
+    { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end },
 })
 if lazy_bootstrap then
     require('lazy').sync()
