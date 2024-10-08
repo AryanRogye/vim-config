@@ -34,21 +34,4 @@ function M.load_rose_pine()
     })
     vim.cmd('colorscheme rose-pine')
 end
-
-function M.load_zen_bones()
-    local zenbones = require('zenbones')
-    if not zenbones then
-        print("Zenbones module not found!")
-        return
-    end
-    if not zenbones.setup then
-        print("Zenbones does not have a setup function.")
-        return
-    end
-    zenbones.setup({
-        zenbones_darken_comments = 45,
-    })
-    vim.cmd[[colorscheme zenbones]]
-end
-
 return M
