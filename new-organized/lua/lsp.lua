@@ -27,11 +27,17 @@ local on_attach = function(client, bufnr)
     local opts = { noremap=true, silent=true }
 
     -- LSP Keybindings
-    buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)  -- Go to definition
-    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)  -- Find references
-    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts) -- Go to implementation
-    buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)        -- Hover information
-    buf_set_keymap('n', '<C-LeftMouse>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts) -- Command-click navigation
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)           -- Go to definition
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)           -- Show references to symbol
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)       -- Go to implementation
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)                 -- Show hover documentation
+    vim.keymap.set('n', '<C-LeftMouse>', vim.lsp.buf.definition, opts) -- Go to definition with Ctrl + Left Click
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)       -- Rename symbol
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)  -- Show code actions
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)         -- Go to previous diagnostic
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)         -- Go to next diagnostic
+    vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts) -- Show line diagnostics in a floating window
+    vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts) -- Add diagnostics to quickfix list
 end
 
 -- LSP Capabilities with nvim-cmp
