@@ -1,75 +1,66 @@
--- ~/.config/nvim/lua/lsp.lua
+local lsp = require('lsp-zero')
 
--- Mason LSPConfig Setup
-require('mason').setup({
-    ui = {
-        icons = {
-            package_installed = "✓",
-            package_pending = "➜",
-            package_uninstalled = "✗"
-        }
-    }
+lsp.preset('recommended')
+
+lsp.ensure_installed({
+    'gopls',         -- Go
+    'clangd',        -- C/C++
+    'pyright',       -- Python
+    'rust_analyzer', -- Rust
+    'jdtls',         -- Java
+    'zls',           -- Zig
 })
 
+lsp.on_attach(function(client, bufnr)
+    local opts = { noremap=true, silent=true, buffer=bufnr }
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts) 
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', '<C-LeftMouse>', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+    vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
+    vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
+end)
 
-local mason_lspconfig = require("mason-lspconfig")
-
-mason_lspconfig.setup({
-    ensure_installed = {"gopls", "clangd", "pyright", "rust_analyzer", "jdtls"},
-    automatic_installation = true,
+-- Set up nvim-cmp capabilities (if you're using autocompletion)
+local cmp = require('cmp')
+local cmp_mappings = lsp.defaults.cmp_mappings({
+  ['<C-Space>'] = cmp.mapping.complete(),
 })
 
-local lspconfig = require("lspconfig")
+lsp.setup_nvim_cmp({
+  mapping = cmp_mappings
+})
 
--- Standard on_attach function for LSP
-local on_attach = function(client, bufnr)
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    local opts = { noremap=true, silent=true }
+-- Finally, set up lsp-zero
+lsp.setup()
 
-    -- LSP Keybindings
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)           -- Go to definition
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)           -- Show references to symbol
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)       -- Go to implementation
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)                 -- Show hover documentation
-    vim.keymap.set('n', '<C-LeftMouse>', vim.lsp.buf.definition, opts) -- Go to definition with Ctrl + Left Click
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)       -- Rename symbol
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)  -- Show code actions
-    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)         -- Go to previous diagnostic
-    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)         -- Go to next diagnostic
-    vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts) -- Show line diagnostics in a floating window
-    vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts) -- Add diagnostics to quickfix list
+-- Configure diagnostics display
+vim.diagnostic.config({
+    virtual_text = {
+        prefix = '●', -- Could be '●', '▎', 'x'
+    },
+    signs = true,
+    underline = true,
+    update_in_insert = false, -- Disable diagnostics in insert mode
+    severity_sort = true,
+    float = {
+        focusable = false,
+        style = 'minimal',
+        border = 'rounded',
+        source = 'always',
+        header = '',
+        prefix = '',
+    },
+})
+
+-- Define signs for diagnostics
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
-
--- LSP Capabilities with nvim-cmp
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-
--- Configure LSP servers
-lspconfig.rust_analyzer.setup { on_attach = on_attach, capabilities = capabilities }
-lspconfig.gopls.setup { on_attach = on_attach, capabilities = capabilities }
-lspconfig.clangd.setup { 
-    on_attach = on_attach, 
-    capabilities = capabilities,
-    cmd = {
-        "clangd", 
-        "--header-insertion=never",
-        "--compile-commands-dir=.",
-        "-I/opt/homebrew/opt/glfw/include",  -- Include GLFW headers
-        "-L/opt/homebrew/opt/glfw/lib",      -- GLFW library path
-        "-std=c++20"                         -- C++ standard
-    }
-}
-lspconfig.ts_ls.setup { on_attach = on_attach, capabilities = capabilities }  -- TypeScript LSP
-lspconfig.pyright.setup { on_attach = on_attach, capabilities = capabilities }   -- Python
-lspconfig.jdtls.setup { on_attach = on_attach, capabilities = capabilities }     -- Java
-lspconfig.dartls.setup { on_attach = on_attach, capabilities = capabilities }    -- Dart
-
-local function swift_root_dir(fname)
-    local root = lspconfig.util.root_pattern('Package.swift', 'project.pbxproj', '.git')(fname)
-    return root or vim.fn.getcwd()
-end
-
-lspconfig.sourcekit.setup({
-    on_attach = on_attach,        
-    capabilities = capabilities,  
-    root_dir = swift_root_dir,    
-})

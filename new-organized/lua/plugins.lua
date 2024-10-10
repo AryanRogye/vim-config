@@ -25,20 +25,38 @@ lazy.setup({
             require('nvimtree_config') -- Load your config from the separate file
         end,
     },
-    -- NERDTREE: A file explorer for navigating your file system in Neovim.
-    -- {'preservim/nerdtree'},
-    -- Mason: Manages external tools such as LSP servers, linters, formatters.
-    {'williamboman/mason.nvim'},
-    -- Mason LSPconfig: Bridges between Mason and Neovim LSPconfig.
-    {'williamboman/mason-lspconfig.nvim'},
+    -- LSP ZERO
     {
-        "neovim/nvim-lspconfig",
-        config = function()
-            local lspconfig = require('lspconfig')
-            -- Configuring the SourceKit language server (for Swift/Objective-C)
-            lspconfig.sourcekit.setup {}
-        end,
+        'VonHeikemen/lsp-zero.nvim',
+        branch = 'v1.x',
+        dependencies = {
+            {'neovim/nvim-lspconfig'},  -- LSP support
+            {'williamboman/mason.nvim'}, -- Tool manager for LSP servers
+            {'williamboman/mason-lspconfig.nvim'}, -- Integration between mason and lspconfig
+            {'hrsh7th/nvim-cmp'},  -- Autocompletion plugin
+            {'hrsh7th/cmp-nvim-lsp'}, -- Autocompletion for LSP
+        }
     },
+
+    -- Deciding to use lsp zero
+    -- Gonna try it out for a bit
+
+    -- Mason: Manages external tools such as LSP servers, linters, formatters.
+    -- {'williamboman/mason.nvim'},
+    -- Mason LSPconfig: Bridges between Mason and Neovim LSPconfig.
+    -- {'williamboman/mason-lspconfig.nvim'},
+    -- {
+    --     "neovim/nvim-lspconfig",
+    --     config = function()
+    --         local lspconfig = require('lspconfig')
+    --         -- Configuring the SourceKit language server (for Swift/Objective-C)
+    --         lspconfig.sourcekit.setup {}
+    --     end,
+    -- },
+
+
+
+
     -- Telescope: A fuzzy finder for searching files, text, or Neovim buffers.
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.8',

@@ -62,6 +62,12 @@ if not status_ok then
     vim.api.nvim_err_writeln("Error loading prettier_config.lua: " .. prettier_config)
 end
 
+-- Load NerdTree Icon
+-- local status_ok, nerdtree_config = pcall(require, 'nerdtree_config')
+-- if not status_ok then
+-- 	vim.api.nvim_err_writeln("Error loading nerdtree_config" .. nerdtree_config)
+-- end
+
 -- The 3 main themes I use
 ----------------------------
 -- themes.load_tokyonight()
