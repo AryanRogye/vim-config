@@ -1,5 +1,4 @@
 local M = {}
-C = require("Aryan.core.utils")
 
 M.vsc = function()
     require('vscode').setup({
@@ -128,7 +127,6 @@ M.lo = function()
     vim.cmd([[
         highlight Normal guibg=NONE ctermbg=NONE
     ]])
-    -- C.utif("M.lo()", "M.lg()", "M.lc()")
 end
 
 M.df = function()
@@ -147,28 +145,17 @@ M.lc = function ()
     local config = {
         lazy = false,
         priority = 1000,
-        --- Enable italics comments
         italic_comments = true,
-        -- Set terminal colors used in `:terminal`
         terminal_colors = true,
-        -- Replace all fillchars with ' ' for the ultimate clean look
         hide_fillchars = true,
         transparent = false,
-        -- Improve start up time by caching highlights. Generate cache with :CyberdreamBuildCache and clear with :CyberdreamClearCache
         cache = false,
 
         theme = {
-            variant = "dark", -- use "light" for the light variant. Also accepts "auto" to set dark or light colors based on the current value of `vim.o.background`
-            saturation = 1, -- accepts a value between 0 and 1. 0 will be fully desaturated (greyscale) and 1 will be the full color (default)
+            variant = "dark", 
+            saturation = 1, 
             highlights = {
-                -- Highlight groups to override, adding new groups is also possible
-                -- See `:h highlight-groups` for a list of highlight groups or run `:hi` to see all groups and their current values
-
-                -- Example:
                 ColorColumn = {},
-                -- Comment = { fg = "#696969", bg = "NONE", italic = true },
-
-                -- Complete list can be found in `lua/cyberdream/theme.lua`
             },
         },
         options = {
@@ -177,10 +164,6 @@ M.lc = function ()
     }
     require("cyberdream").setup(config)
     vim.cmd("colorscheme cyberdream")
-    -- C.utif("M.lc()", "M.lg()", "M.lo()")
 end
-
-
-
 
 return M

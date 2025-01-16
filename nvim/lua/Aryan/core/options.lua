@@ -15,7 +15,6 @@ vim.opt.expandtab = true
 
 -- Line Numbers
 vim.opt.relativenumber = true      -- Show relative line numbers
-vim.opt.numberwidth = 1
 vim.opt.number = true              -- Show absolute line number
 
 -- Syntax and Fonts
@@ -25,8 +24,4 @@ vim.g.have_nerd_font = true        -- Enable NERD fonts
 -- Search Settings
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-
--- vim.opt.signcolumn = "yes"
-vim.opt.backspace = "indent,eol,start"
-vim.opt.swapfile = true
 
