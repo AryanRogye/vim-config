@@ -114,9 +114,9 @@ lspconfig.ts_ls.setup({
 -- Clangd Setup
 lspconfig.clangd.setup({
     cmd = { "clangd", "--background-index", "--clang-tidy", "--compile-commands-dir=./" },
-    capabilities = capabilities, -- Default capabilities (autocomplete, etc.)
-    on_attach = on_attach, -- Function for attaching keybindings, etc.
-    filetypes = { "c", "cpp", "objc", "objcpp" },
+    capabilities = capabilities,
+    on_attach = on_attach,
+    filetypes = { "c", "cpp", "objc", "objcpp", "ino" }, -- Add "ino" here
     flags = {
         debounce_text_changes = 100,
     },
@@ -130,6 +130,21 @@ lspconfig.rust_analyzer.setup({
     flags = {
         debounce_text_changes = 50,
     },
+})
+
+-- GD Script
+lspconfig.gdscript.setup({
+    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+    on_attach = function(client, bufnr)
+        -- Example of attaching keybindings or settings
+        print("GDScript LSP attached")
+    end,
+    flags = {
+        debounce_text_changes = 150,
+    },
+    cmd = { "godot", "--headless", "--language-server" },
+    filetypes = { "gd", "gdscript", "gdscript3" },
+    root_dir = lspconfig.util.root_pattern("project.godot", ".git"),
 })
 
 lspconfig.gopls.setup({
@@ -168,4 +183,10 @@ vim.diagnostic.config({
     virtual_text = { spacing = 2, prefix = "●" },
     update_in_insert = true,
     severity_sort = true,
+})
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = "*.ino",
+    callback = function()
+        vim.bo.filetype = "cpp"
+    end,
 })

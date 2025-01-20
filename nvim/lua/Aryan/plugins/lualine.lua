@@ -128,16 +128,11 @@ return {
       },
       sections = {
         lualine_a = { { "mode", upper = true } },
-        lualine_b = { "branch", "diff" },
+        lualine_b = {},
         lualine_c = { { "filename", path = 1 } },
-        lualine_x = {
-          { "diagnostics", sources = { "nvim_lsp" } },
-          { "encoding" },
-          { "fileformat" },
-          { "filetype" },
-        },
-        lualine_y = { "progress" },
-        lualine_z = { "location" },
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = { "branch", "diff" },
       },
       inactive_sections = {
         lualine_a = {},

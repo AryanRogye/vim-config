@@ -9,7 +9,6 @@ vim.api.nvim_set_keymap('n', '<leader>h', ':lua require("harpoon.ui").toggle_qui
 vim.api.nvim_set_keymap('n', '<leader>r', ':lua require("harpoon.mark").rm_file()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>c', ':lua require("harpoon.mark").clear_all()<CR>',{ noremap = true, silent = true })
 
-
 -- Telescope Keymaps
 vim.api.nvim_set_keymap('n', 'N', ':Telescope find_files<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'f', ':Telescope live_grep<CR>', { noremap = true, silent = true })
@@ -26,8 +25,25 @@ vim.api.nvim_set_keymap("n", "<C-k>", "<Nop>", { noremap = true, silent = true }
 -- Barber Keymaps
 vim.api.nvim_set_keymap('n', '<C-[>', '<Cmd>BufferPrevious<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-]>', '<Cmd>BufferNext<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<A-c>', '<Cmd>BufferClose<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>o', '<Cmd>BufferClose<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>cp', ':lua CopyPathAndOpen()<CR>', { noremap = true, silent = true })
 
+function CopyPathAndOpen()
+    -- Get Path and Line Number
+    local filepath = vim.fn.expand('%:p')
+    local linenumber = vim.fn.line('.')
+
+    -- Get nvim command to open file at line number
+    local nvim_cmd = 'nvim +' .. linenumber .. ' ' .. filepath
+
+    -- Close The Buffer
+    vim.cmd('bdelete')
+    -- Open Horizontal Tmux Split
+    vim.fn.system("tmux split-window -h '" .. nvim_cmd .. "'")
+end
+
+-- Copilot Keymaps
+vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Accept("<CR>")', { expr = true, silent = true })
 
 -- Move selected lines down in Visual mode with J
 vim.api.nvim_set_keymap('v', 'J', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })

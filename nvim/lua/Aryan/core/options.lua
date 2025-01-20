@@ -25,3 +25,8 @@ vim.g.have_nerd_font = true        -- Enable NERD fonts
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
+-- Command Line Behavior
+vim.opt.cmdheight = 1  -- Height of the command line (increase to 2 if needed)
+vim.opt.pumheight = 10 -- Maximum number of items to show in completion popup
+vim.opt.shortmess:append("c")  -- Reduce command-line clutter
+

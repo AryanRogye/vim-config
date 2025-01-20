@@ -35,21 +35,7 @@ M.gd = function()
     })
     vim.cmd([[colorscheme gruber-darker]])
     vim.cmd([[
-        highlight LineNr guibg=NONE
-        highlight clear CursorLineNR
         highlight Normal guibg=NONE ctermbg=NONE
-        highlight SignColumn guibg=NONE ctermbg=NONE
-        highlight LineNr guibg=NONE ctermbg=NONE
-        highlight CursorLineNr guibg=NONE ctermbg=NONE
-        highlight CursorLine guibg=NONE ctermbg=NONE
-        highlight VertSplit guibg=NONE ctermbg=NONE
-        highlight WinSeparator guibg=NONE ctermbg=NONE
-        highlight EndOfBuffer guibg=NONE ctermbg=NONE
-        highlight FoldColumn guibg=NONE ctermbg=NONE
-        highlight NormalNC guibg=NONE ctermbg=NONE
-        highlight MsgArea guibg=NONE ctermbg=NONE
-        highlight TelescopeNormal guibg=NONE ctermbg=NONE
-        highlight NvimTreeNormal guibg=NONE ctermbg=NONE
     ]])
 end
 

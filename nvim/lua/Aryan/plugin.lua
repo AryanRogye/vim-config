@@ -16,8 +16,14 @@ end
 local lazy_bootstrap = ensure_lazy()
 local status_ok, lazy = pcall(require, "lazy") if not status_ok then return end
 
+if lazy_bootstrap then
+    vim.notify("Lazy.nvim installed. Restart Neovim to complete setup!", "info", { title = "Bootstrap" })
+    return
+end
+
 -- Installing plugins here
 lazy.setup({
+    { 'neovim/nvim-lspconfig', config = function() require("Aryan.plugins.lspconfig") end},
     -- Themes
     require("Aryan.themes.gruvbox"),
     require("Aryan.themes.gruber-darker"),
@@ -29,8 +35,9 @@ lazy.setup({
     require("Aryan.themes.vscode"),
     require("Aryan.themes.cyberdream"),
     require("Aryan.themes.dark_flat"),
-    
+
     -- Plugins
+    require("Aryan.plugins.tmux"),
     require("Aryan.plugins.nvim-tree"),
     require("Aryan.plugins.treesitter"),
     require("Aryan.plugins.lualine"),
@@ -44,6 +51,10 @@ lazy.setup({
     require("Aryan.plugins.cell-auto"),
     require("Aryan.plugins.vim-surround"),
     require("Aryan.plugins.tabs"),
+    require("Aryan.plugins.notifications"),
+    require("Aryan.plugins.copilot"),
+
+    -- Lsp Plugins
     require("Aryan.plugins.luasnip"),       
     require("Aryan.plugins.cmp-buffer"),    
     require("Aryan.plugins.cmp-calc"),      
