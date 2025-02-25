@@ -1,6 +1,8 @@
 local lspconfig = require("lspconfig")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+
 local on_attach = function(_, bufnr)
     print("LSP ATTACHED")
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
@@ -113,7 +115,7 @@ lspconfig.ts_ls.setup({
 
 -- Clangd Setup
 lspconfig.clangd.setup({
-    cmd = { "clangd", "--background-index", "--clang-tidy", "--compile-commands-dir=./" },
+    cmd = { "clangd", "--background-index", "--clang-tidy", "--compile-commands-dir=./"},
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = { "c", "cpp", "objc", "objcpp", "ino" }, -- Add "ino" here
@@ -122,6 +124,25 @@ lspconfig.clangd.setup({
     },
     root_dir = lspconfig.util.root_pattern("compile_commands.json", "Makefile", ".git") or vim.loop.cwd(),
 })
+
+-- Arduino Setup
+lspconfig.arduino_language_server.setup({
+    cmd = {
+        "arduino-language-server",
+        "-cli-config", vim.fn.expand("~/.arduinoIDE/arduino-cli.yaml"),
+        "-fqbn", "arduino:renesas_uno:unor4wifi",
+        "-cli", "arduino-cli",
+        "-clangd", "clangd"
+    },
+    capabilities = capabilities,
+    on_attach = on_attach,
+    filetypes = { "ino" },
+    flags = {
+        debounce_text_changes = 150,
+    },
+    root_dir = lspconfig.util.root_pattern("arduino-cli.yaml", ".git"),
+})
+
 
 -- RUST
 lspconfig.rust_analyzer.setup({
@@ -164,6 +185,15 @@ lspconfig.gopls.setup({
     },
 })
 
+lspconfig.ols.setup ({
+    init_options = {
+        checker_args = "-strict-style",
+        collections = {
+            { name = "shared", path = vim.fn.expand('$HOME/odin-lib') }
+        },
+    },
+})
+
 -- SWIFT
 lspconfig.sourcekit.setup({
     cmd = { "sourcekit-lsp" }, -- Ensure sourcekit-lsp is installed
@@ -176,6 +206,30 @@ lspconfig.sourcekit.setup({
         "*.xcodeproj",
         ".git"
     ),
+})
+
+lspconfig.efm.setup({
+    init_options = { documentFormatting = true },
+    capabilities = cmp_nvim_lsp.default_capabilities(),
+    on_attach = on_attach,
+    filetypes = { "odin" },
+    root_dir = lspconfig.util.root_pattern(".git", "odin.mod"),
+
+    settings = {
+        languages = {
+            odin = {
+                {
+                    lintCommand = "odin check ${INPUT}",
+                    lintStdin = false,
+                    lintFormats = {
+                        "%f(%l:%c): %m",
+                    },
+                    formatCommand = "odin fmt",
+                    formatStdin = true,
+                }
+            }
+        }
+    },
 })
 
 
