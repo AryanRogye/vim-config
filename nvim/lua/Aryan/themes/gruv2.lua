@@ -1,2 +1,5 @@
-return { 'ellisonleao/gruvbox.nvim', name = 'g2' }
+return {
+    'ellisonleao/gruvbox.nvim',
+    lazy = true,
+}
 

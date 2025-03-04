@@ -1,81 +1,76 @@
 return {
-  "hrsh7th/nvim-cmp",
-  event = {"InsertEnter", "CmdLineEnter"},
-  enabled = true,
-  opts = function(_, opts)
-    local cmp = require("cmp")
-    local luasnip = require("luasnip")
+    "hrsh7th/nvim-cmp",
+    event = {"InsertEnter", "CmdLineEnter"},
+    enabled = true,
+    opts = function(_, opts)
 
-    local confirm_opts = {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    }
+        -- require the cmp and luasnip module
+        local cmp = require("cmp")
+        local luasnip = require("luasnip")
 
-    local window = {
-      completion = {
-        border = "rounded",
-        winhighlight = 'Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:Pmenu',
-        scrollbar = false,
-      },
-      documentation = {
-        border = "rounded",
-        winhighlight = 'Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:Pmenu',
-        scrollbar = false,
-      },
-    }
+        -- set the completion options
+        local confirm_opts = {
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+        }
 
-    cmp.setup.filetype("gitcommit", {
-      sources = cmp.config.sources({
-        { name = "fugitive" },
-        { name = "buffer" },
-        { name = "spell" },
-      }),
-    })
+        -- set the window options
+        local window = {
+            -- Window for the completion
+            completion = {
+                border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+                winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:Pmenu",
+                scrollbar = true,
+                col_offset = 0,
+                side_padding = 1,
+            },
+            -- Window for the documentation
+            documentation = {
+                border = "solid",
+                winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:Pmenu",
+                scrollbar = true,
+            },
+        }
 
-    cmp.setup.filetype("sql", {
-      sources = cmp.config.sources({
-        { name = "vim-dadbod-completion" },
-        { name = "buffer" },
-      }),
-    })
 
-    cmp.setup.cmdline({ "/", "?" }, {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = {
-        { name = "buffer" },
-      },
-    })
+        cmp.setup.filetype("gitcommit", {
+            sources = cmp.config.sources({
+                { name = "fugitive" },
+                { name = "buffer" },
+            }),
+        })
 
-    cmp.setup.cmdline(":", {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = cmp.config.sources({
-        { name = "path" },
-      }, {
-        { name = "cmdline", option = { ignore_cmds = { 'Man', "!'" } } },
-      }),
-    })
+        -- Dont Use SQL
+        -- cmp.setup.filetype("sql", {
+        --     sources = cmp.config.sources({
+        --         { name = "vim-dadbod-completion" },
+        --         { name = "buffer" },
+        --     }),
+        -- })
 
-    local function has_words_before()
-      local line, col = (unpack or table.unpack)(vim.api.nvim_win_get_cursor(0))
-      return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
-    end
+        cmp.setup.cmdline({ "/", "?" }, {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = {
+                { name = "buffer" },
+            },
+        })
 
-    local check_backspace = function()
-      local col = vim.fn.col "." - 1
-      return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
-    end
+        cmp.setup.cmdline(":", {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = cmp.config.sources({
+                { name = "path" },
+            }, {
+                    { name = "cmdline", option = { ignore_cmds = { 'Man', "!'" } } },
+                }),
+        })
 
-    local kind_icons = require("Aryan.core.icons").kind
-
-    local snippet = {
-      expand = function(args) luasnip.lsp_expand(args.body) end,
-    }
+        local snippet = {
+            expand = function(args) luasnip.lsp_expand(args.body) end,
+        }
 
         local mapping = {
             ["<C-j>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
             ["<C-k>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
-            ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
-            ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
             ["<C-c>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.abort()
@@ -108,16 +103,13 @@ return {
             end, { "i", "s" }),
         }
 
-    local source_mapping = {
-      spell         = "[Spell]",
-      buffer        = "[Buffer]",
-      calc          = "[calc]",
-      latex_symbols = "[LaTeX]",
-      luasnip       = "[Snippet]",
-      nvim_lsp      = "[LSP]",
-      nvim_lua      = "[Lua]",
-      path          = "[Path]",
-    }
+        local source_mapping = {
+            buffer        = "[Buffer]",
+            luasnip       = "[Snippet]",
+            nvim_lsp      = "[LSP]",
+            nvim_lua      = "[Lua]",
+            path          = "[Path]",
+        }
 
         local formatting = {
             fields = {'kind', 'abbr', 'menu'},
@@ -138,28 +130,25 @@ return {
         }
 
         local sources = {
-            { name = "spell",         keyword_length = 4, max_item_count = 10, priority = 450 },
             { name = "buffer",        keyword_length = 3, max_item_count = 10, priority = 500 },
-            { name = "calc",          keyword_length = 3, max_item_count = 10, priority = 250 },
-            { name = "latex_symbols", keyword_length = 1, max_item_count = 10, priority = 300 },
             { name = "luasnip",       keyword_length = 1, max_item_count = 10, priority = 825 },  -- Snippets appear after 2 letters
             { name = "nvim_lsp",      keyword_length = 1, max_item_count = 10, priority = 900 },
             { name = "nvim_lua",      keyword_length = 1, max_item_count = 10, priority = 800 },
             { name = "path",          keyword_length = 3, max_item_count = 20, priority = 250 },
         }
 
-    opts.confirm_opts = confirm_opts
-    opts.formatting = formatting
-    opts.mapping = mapping
-    opts.snippet = snippet
-    opts.sources = sources
-    opts.window = window
-  end,
+        opts.confirm_opts = confirm_opts
+        opts.formatting = formatting
+        opts.mapping = mapping
+        opts.snippet = snippet
+        opts.sources = sources
+        opts.window = window
+    end,
 
-  config = function(_, opts)
-      for _, source in ipairs(opts.sources) do
-        source.group_index = source.group_index or 1
-      end
-      require("cmp").setup(opts)
-  end,
+    config = function(_, opts)
+        for _, source in ipairs(opts.sources) do
+            source.group_index = source.group_index or 1
+        end
+        require("cmp").setup(opts)
+    end,
 }

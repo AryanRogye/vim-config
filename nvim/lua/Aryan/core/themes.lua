@@ -59,9 +59,11 @@ M.tokyonight = function()
         "tokyonight-day"
     }
 
-    local current_index = 1 -- Start with the first theme
+    local current_index = 1 -- Start with the 2 cuz I like it
 
-    vim.cmd [[colorscheme tokyonight-moon]]
+    require("Aryan.plugins.lualine").load_line("tokyonight")
+
+    vim.cmd [[colorscheme tokyonight-night]]
     function CycleTokyoNight()
         current_index = current_index % #themes + 1
         vim.cmd("colorscheme " .. themes[current_index])
@@ -72,7 +74,7 @@ M.tokyonight = function()
 end
 
 M.fd = function()
-    vim.cmd.colorscheme "dayfox"
+    vim.cmd.colorscheme "terafox"
 end
 
 M.re = function()
@@ -87,6 +89,7 @@ M.zenburns0 = function()
     vim.cmd.colorscheme "zenburns"
 end
 M.co = function()
+    require("Aryan.plugins.lualine").load_line("reykjavik")
     vim.cmd.colorscheme "comfy"
     -- vim.cmd([[
     --     highlight Normal guibg=NONE ctermbg=NONE
@@ -138,29 +141,51 @@ end
 
 -- Function to load Gruvbox theme
 M.lg = function()
-    vim.opt.termguicolors = true
-    vim.g.gruvbox_contrast_light = 'hard'
+    local themes = { "hard", "medium", "soft" }
+    local current_index = 1
+    local is_light = false  -- Track light mode state
+
+    -- Function to cycle through Gruvbox contrast themes
+    function CycleGruv()
+        current_index = current_index % #themes + 1
+        vim.g.gruvbox_contrast_dark = themes[current_index]
+        vim.g.gruvbox_contrast_light = themes[current_index]
+        vim.cmd([[colorscheme gruvbox]])  -- Reapply theme
+    end
+
+    -- Function to toggle between light and dark mode
+    function ToggleGruvboxLightMode()
+        if is_light then
+            -- Switch to dark mode
+            vim.o.background = "dark"
+            is_light = false
+        else
+            -- Switch to light mode
+            vim.o.background = "light"
+            is_light = true
+        end
+        vim.cmd([[colorscheme gruvbox]])  -- Reapply theme
+    end
+
+    -- Apply initial theme
+    vim.g.gruvbox_contrast_dark = themes[current_index]
+
+    require("Aryan.plugins.lualine").load_line("gruvbox")
     vim.cmd([[colorscheme gruvbox]])
-    -- vim.cmd([[
-    --     highlight Normal guibg=NONE ctermbg=NONE
-    -- ]])
+
+    -- Keybindings
+    vim.keymap.set("n", "<leader>n", CycleGruv, { desc = "Cycle Gruvbox themes" })
+    vim.keymap.set("n", "<leader>m", ToggleGruvboxLightMode, { desc = "Toggle Gruvbox Light/Dark mode" })
+
+    -- Additional Gruvbox settings
+    vim.opt.termguicolors = true
+    vim.g.gruvbox_italicize_comments = 1
+    vim.g.gruvbox_improved_warnings = 1
+    vim.g.gruvbox_improved_strings = 0  -- did not like this
 end
 
 M.g2 = function()
-    -- Use the exact name from Lazy.nvim config
-    local plugin_name = "ellisonleao/gruvbox.nvim"
-
-    -- Ensure Lazy.nvim loads it
-    if require("lazy.core.config").plugins[plugin_name] then
-        require("lazy").load({ plugins = { plugin_name } })
-    else
-        print("Plugin " .. plugin_name .. " not found in Lazy.nvim!")
-        return
-    end
-
-    -- Apply colorscheme
-    vim.cmd("colorscheme gruvbox")
-    print("Loaded Gruvbox (ellisonleao)")
+    vim.cmd([[colorscheme gruvbox]])
 end
 
 M.ls = function()

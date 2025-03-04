@@ -7,7 +7,7 @@ return {
             default = 3,
             themes = { -- Pass themes directly
                 { name = "GruvBox", func = theme.lg },
-                { name = "Gruv2", func = theme.g2 },
+                -- { name = "Gruv2", func = theme.g2 },
                 -- { name = "GruvBox", func = function()
                 --     print("GRUV")
                 --     vim.cmd("colorscheme gruvbox")
@@ -22,14 +22,14 @@ return {
                 { name = "Gruber"     , func = theme.gd  },
                 -- { name = "Neofusion"  , func = theme.nf  },
                 { name = "vscode"     , func = theme.vsc },
-                { name = "vscode2"     , func = theme.vv },
+                -- { name = "vscode2"     , func = theme.vv },
                 -- { name = "reykjavik"  , func = theme.re  },
                 { name = "comfy"      , func = theme.co  },
                 { name = "tokyonight" , func = theme.tokyonight  },
                 { name = "cat"    , func = theme.drac },
-                -- { name = "day-fox"    , func = theme.fd  },
-                { name = "zenburns1"   , func = theme.zenburns1 },
-                { name = "zenburns2"   , func = theme.zenburns0 },
+                { name = "nightfox"    , func = theme.fd  },
+                -- { name = "zenburns1"   , func = theme.zenburns1 },
+                -- { name = "zenburns2"   , func = theme.zenburns0 },
                 { name = "farout"      , func = theme.farout },
                 { name = "owl"         , func = theme.owl },
                 { name = "dos"         , func = theme.dos },

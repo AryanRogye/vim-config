@@ -13,7 +13,22 @@ vim.api.nvim_set_keymap('n', '<leader>c', ':lua require("harpoon.mark").clear_al
 
 -- Telescope Keymaps
 vim.api.nvim_set_keymap('n', 'N', ':Telescope find_files<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 'f', ':Telescope live_grep<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope live_grep<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>fr', ':Telescope registers<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>fk', ':Telescope keymaps<CR>', { noremap = true, silent = true })
+
+vim.keymap.set("n", "<leader>en", function()
+    require('telescope.builtin').find_files {
+        cwd = vim.fn.stdpath('config')
+    }
+end)
+vim.keymap.set("n", "<leader>fh", function()
+    local opts = require('telescope.themes').get_ivy({
+        cwd = vim.fn.stdpath('config')
+    })
+    require('telescope.builtin').help_tags(opts)
+end)
+
 
 vim.api.nvim_set_keymap("n", "H", "<C-w>", {})
 
@@ -24,6 +39,7 @@ vim.api.nvim_set_keymap("n", "<C-l>", "<Nop>", { noremap = true, silent = true }
 vim.api.nvim_set_keymap("n", "<C-k>", "<Nop>", { noremap = true, silent = true })
 
 -- Barber Keymaps
+vim.api.nvim_set_keymap('n', '<C-p>', '<Cmd>BufferPin<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-[>', '<Cmd>BufferPrevious<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-]>', '<Cmd>BufferNext<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>o', '<Cmd>BufferClose<CR>', { noremap = true, silent = true })
@@ -49,10 +65,13 @@ vim.api.nvim_set_keymap('v', 'K', ":m '<-2<CR>gv=gv", { noremap = true, silent =
 vim.api.nvim_set_keymap("n", "Z", ":ZenMode<CR>", { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap("n", "<leader>F", "<cmd>CellularAutomaton make_it_rain<CR>", { noremap = true, silent = true })
-vim.keymap.set({'n', 'v', 'o'}, ',', '%', { noremap = true, silent = true })
+
+-- I liked this but I need , to be used for other things
+-- vim.keymap.set({'n', 'v', 'o'}, ',', '%', { noremap = true, silent = true })
 
 
 vim.keymap.set("n", "rr", vim.lsp.buf.references, { noremap = true, silent = true, desc = "Find all references" })
+
 
 vim.keymap.set("n", ".", function()
     local word = vim.fn.expand("<cword>")  -- Get the word under cursor
@@ -65,6 +84,14 @@ vim.keymap.set("v", ".", function()
 end, { noremap = true, silent = true, desc = "Search selected text in project" })
 
 
+vim.keymap.set("n", "tt", function()
+    require("Aryan.core.utils").toggle_terminal()
+end, { noremap = true, silent = true })
+
+-- Allow The Transpareny function to be called by :tt to enable transparency
+vim.api.nvim_create_user_command("TT", function()
+    require("Aryan.core.utils").toggle_transparent_and_save()
+end, {})
 
 
 

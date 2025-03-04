@@ -1,3 +1,4 @@
 return {
-    'maxmx03/solarized.nvim'
+    'maxmx03/solarized.nvim',
+    lazy = true,
 }

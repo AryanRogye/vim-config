@@ -1,4 +1,5 @@
 return { 
-    "Mofiqul/vscode.nvim" 
+    "Mofiqul/vscode.nvim" ,
+    lazy = true,
 }
 

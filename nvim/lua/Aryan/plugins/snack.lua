@@ -11,7 +11,7 @@ return {
         statuscolumn = { enabled = true },
         bigfile = { enabled = true },
         words = { enabled = false },
-        indent = { enabled = true },
+        indent = { enabled = false },
         picker = { enabled = false }
     }
 }

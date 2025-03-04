@@ -1,6 +1,7 @@
 return { 
     "diegoulloao/neofusion.nvim", 
     priority = 1000,
-    config = true
+    config = true,
+    lazy = true,
 }
 

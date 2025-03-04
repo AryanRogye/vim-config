@@ -1,37 +1,38 @@
 
 return {
-  "nvim-neo-tree/neo-tree.nvim",
-  branch = "v3.x",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-    "nvim-tree/nvim-web-devicons",
-    "MunifTanjim/nui.nvim",
-  },
-  config = function()
-    require("neo-tree").setup({
-      window = {
-        position = "right",
-        width = 35,
-        mappings = { ["<space>"] = "none" }, -- Disable annoying space keybinding
-      },
-      filesystem = {
-        filtered_items = {
-          visible = false, -- Hide dotfiles by default, toggle with `H`
-          hide_dotfiles = false,
-          hide_gitignored = true,
-          hide_by_name = { ".DS_Store", ".vscode", "node_modules" }, -- Hide extra clutter
-        },
-        follow_current_file = { enabled = true }, -- Keep file tree in sync
-      },
-      default_component_configs = {
-        indent = { padding = 0 }, -- Removes extra indent space
-        icon = {
-          folder_closed = "",
-          folder_open = "",
-        },
-      },
-    })
-  end,
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+        {"nvim-lua/plenary.nvim", cmd = "Neotree" },
+        {"nvim-tree/nvim-web-devicons", cmd = "Neotree" },
+        {"MunifTanjim/nui.nvim", cmd = "Neotree" },
+    },
+    cmd = "Neotree",
+    config = function()
+        require("neo-tree").setup({
+            window = {
+                position = "right",
+                width = 35,
+                mappings = { ["<space>"] = "none" }, -- Disable annoying space keybinding
+            },
+            filesystem = {
+                filtered_items = {
+                    visible = false, -- Hide dotfiles by default, toggle with `H`
+                    hide_dotfiles = false,
+                    hide_gitignored = true,
+                    hide_by_name = { ".DS_Store", ".vscode", "node_modules" }, -- Hide extra clutter
+                },
+                follow_current_file = { enabled = true }, -- Keep file tree in sync
+            },
+            default_component_configs = {
+                indent = { padding = 0 }, -- Removes extra indent space
+                icon = {
+                    folder_closed = "",
+                    folder_open = "",
+                },
+            },
+        })
+    end,
 }
 -- return {
 --   "nvim-tree/nvim-tree.lua",

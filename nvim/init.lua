@@ -1,5 +1,7 @@
 require("Aryan.core")
 require("Aryan.plugin")
+require("Aryan.core.themes")
+
 
 local cmp_enabled = true
 

@@ -1,9 +1,10 @@
 return {
     'romgrk/barbar.nvim',
     dependencies = {
-        'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-        'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+        {'lewis6991/gitsigns.nvim', lazy = true},
+        {'nvim-tree/nvim-web-devicons', lazy = true},
     },
+    event = "BufReadPost",
     init = function() vim.g.barbar_auto_setup = false end,
     opts = {
         -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:

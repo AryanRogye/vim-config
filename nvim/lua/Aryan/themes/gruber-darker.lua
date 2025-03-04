@@ -1,3 +1,4 @@
 return { 
-    "blazkowolf/gruber-darker.nvim"
+    "blazkowolf/gruber-darker.nvim",
+    lazy = true,
 }

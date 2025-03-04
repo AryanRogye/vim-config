@@ -1,155 +1,101 @@
-" Vim color file
-" black
-" Created by  with ThemeCreator (https://github.com/mswift42/themecreator)
+" reykjavik.vim
+" Vim colorscheme based on the reykjavik Emacs theme
+" Converted manually by ChatGPT
 
-hi clear
-
-if exists("syntax on")
-syntax reset
+if version < 700
+  finish
 endif
 
-set t_Co=256
-let g:colors_name = "black"
+set background=dark
 
+" Define the color palette (copied from the Emacs theme)
+let s:bg1 = "#112328"
+let s:bg2 = "#243539"
+let s:bg3 = "#37464a"
+let s:bg4 = "#4a585c"
 
-" Define reusable colorvariables.
-" #1f363a
-let s:bg="#112328"
-let s:fg="#b1b1b1"
-let s:fg2="#a3a3a3"
-let s:fg3="#959595"
-let s:fg4="#878787"
-let s:bg2="#12252D"
-let s:bg3="#37464a"
-let s:bg4="#4a585c"
-let s:keyword="#adbdb7"
-let s:builtin="#7da193"
-let s:const= "#7da193"
-let s:comment="#11ff00"
-let s:func="#adbdb7"
-let s:str="#c3e8f4"
-let s:type="#adbdb7"
-let s:var="#adbdb7"
-let s:warning="#ff0000"
-let s:warning2="#fbff00"
+let s:fg1 = "#b1b1b1"
+let s:fg2 = "#a3a3a3"
+let s:fg3 = "#959595"
+let s:fg4 = "#878787"
 
-exe 'hi Normal guifg='s:fg' guibg='s:bg
-exe 'hi Cursor guifg='s:bg' guibg='s:fg
-exe 'hi CursorLine  guibg='s:bg2
-exe 'hi CursorLineNr guifg='s:str' guibg='s:bg
-exe 'hi CursorColumn  guibg='s:bg2
-exe 'hi ColorColumn  guibg='s:bg2
-exe 'hi FoldColumn guifg='s:comment' guibg='s:bg2
-exe 'hi SignColumn guifg='s:comment' guibg='s:bg2
-exe 'hi LineNr guifg='s:fg2' guibg='s:bg2
-exe 'hi CursorLineNr guifg='s:fg' guibg='s:bg2
-exe 'hi VertSplit guifg='s:fg3' guibg='s:bg3
-exe 'hi MatchParen guifg='s:warning2'  gui=underline'
-exe 'hi StatusLine guifg='s:fg2' guibg='s:bg3' gui=bold'
-exe 'hi Pmenu guifg='s:fg' guibg='s:bg2
-exe 'hi PmenuSel  guibg='s:bg3
-exe 'hi IncSearch guifg='s:bg' guibg='s:keyword
-exe 'hi Search   gui=underline'
-exe 'hi Directory guifg='s:const
-exe 'hi Folded guifg='s:fg4' guibg='s:bg
-exe 'hi WildMenu guifg='s:str' guibg='s:bg
+let s:builtin  = "#c4cbee"
+let s:keyword  = "#a3d4e8"
+let s:const    = "#a3d6cc"
+let s:comment  = "#5d5d5d"
+let s:func     = "#f1c1bd"
+let s:str      = "#e6c2db"
+let s:type     = "#c1d2b1"
+let s:var      = "#e1c9aa"
+let s:warning  = "#e81050"
+let s:warning2 = "#e86310"
 
-exe 'hi Boolean guifg='s:const
-exe 'hi Character guifg='s:const
-exe 'hi Comment guifg='s:comment
-exe 'hi Conditional guifg='s:keyword
-exe 'hi Constant guifg='s:const
-exe 'hi Todo guibg='s:bg
-exe 'hi Define guifg='s:keyword
-exe 'hi DiffAdd guifg=#fafafa guibg=#123d0f gui=bold'
-exe 'hi DiffDelete guibg='s:bg2
-exe 'hi DiffChange  guibg=#151b3c guifg=#fafafa'
-exe 'hi DiffText guifg=#ffffff guibg=#ff0000 gui=bold'
-exe 'hi ErrorMsg guifg='s:warning' guibg='s:bg2' gui=bold'
-exe 'hi WarningMsg guifg='s:fg' guibg='s:warning2
-exe 'hi Float guifg='s:const
-exe 'hi Function guifg='s:func
-exe 'hi Identifier guifg='s:type'  gui=italic'
-exe 'hi Keyword guifg='s:keyword'  gui=bold'
-exe 'hi Label guifg='s:var
-exe 'hi NonText guifg='s:bg4' guibg='s:bg2
-exe 'hi Number guifg='s:const
-exe 'hi Operator guifg='s:keyword
-exe 'hi PreProc guifg='s:keyword
-exe 'hi Special guifg='s:fg
-exe 'hi SpecialKey guifg='s:fg2' guibg='s:bg2
-exe 'hi Statement guifg='s:keyword
-exe 'hi StorageClass guifg='s:type'  gui=italic'
-exe 'hi String guifg='s:str
-exe 'hi Tag guifg='s:keyword
-exe 'hi Title guifg='s:fg'  gui=bold'
-exe 'hi Todo guifg='s:fg2'  gui=inverse,bold'
-exe 'hi Type guifg='s:type
-exe 'hi Underlined   gui=underline'
+" Clear any existing highlights and reset syntax
+highlight clear
+syntax reset
 
-" Neovim Terminal Mode
-let g:terminal_color_0 = s:bg
-let g:terminal_color_1 = s:warning
-let g:terminal_color_2 = s:keyword
-let g:terminal_color_3 = s:bg4
-let g:terminal_color_4 = s:func
-let g:terminal_color_5 = s:builtin
-let g:terminal_color_6 = s:fg3
-let g:terminal_color_7 = s:str
-let g:terminal_color_8 = s:bg2
-let g:terminal_color_9 = s:warning2
-let g:terminal_color_10 = s:fg2
-let g:terminal_color_11 = s:var
-let g:terminal_color_12 = s:type
-let g:terminal_color_13 = s:const
-let g:terminal_color_14 = s:fg4
-let g:terminal_color_15 = s:comment
+let g:colors_name = "reykjavik"
 
-" Ruby Highlighting
-exe 'hi rubyAttribute guifg='s:builtin
-exe 'hi rubyLocalVariableOrMethod guifg='s:var
-exe 'hi rubyGlobalVariable guifg='s:var' gui=italic'
-exe 'hi rubyInstanceVariable guifg='s:var
-exe 'hi rubyKeyword guifg='s:keyword
-exe 'hi rubyKeywordAsMethod guifg='s:keyword' gui=bold'
-exe 'hi rubyClassDeclaration guifg='s:keyword' gui=bold'
-exe 'hi rubyClass guifg='s:keyword' gui=bold'
-exe 'hi rubyNumber guifg='s:const
+" Basic highlight groups mapping:
 
-" Python Highlighting
-exe 'hi pythonBuiltinFunc guifg='s:builtin
+" Normal text
+execute 'highlight Normal guifg=' . s:fg1 . ' guibg=' . s:bg1
 
-" Go Highlighting
-exe 'hi goBuiltins guifg='s:builtin
-let g:go_highlight_array_whitespace_error = 1
-let g:go_highlight_build_constraints      = 1
-let g:go_highlight_chan_whitespace_error  = 1
-let g:go_highlight_extra_types            = 1
-let g:go_highlight_fields                 = 1
-let g:go_highlight_format_strings         = 1
-let g:go_highlight_function_calls         = 1
-let g:go_highlight_function_parameters    = 1
-let g:go_highlight_functions              = 1
-let g:go_highlight_generate_tags          = 1
-let g:go_highlight_operators              = 1
-let g:go_highlight_space_tab_error        = 1
-let g:go_highlight_string_spellcheck      = 1
-let g:go_highlight_types                  = 1
-let g:go_highlight_variable_assignments   = 1
-let g:go_highlight_variable_declarations  = 1
+" Comments
+execute 'highlight Comment guifg=' . s:comment . ' gui=italic'
 
-" Javascript Highlighting
-exe 'hi jsBuiltins guifg='s:builtin
-exe 'hi jsFunction guifg='s:keyword' gui=bold'
-exe 'hi jsGlobalObjects guifg='s:type
-exe 'hi jsAssignmentExps guifg='s:var
+" Constants
+execute 'highlight Constant guifg=' . s:const
 
-" Html Highlighting
-exe 'hi htmlLink guifg='s:var' gui=underline'
-exe 'hi htmlStatement guifg='s:keyword
-exe 'hi htmlSpecialTagName guifg='s:keyword
+" Functions
+execute 'highlight Function guifg=' . s:func
 
-" Markdown Highlighting
-exe 'hi mkdCode guifg='s:builtin
+" Keywords
+execute 'highlight Keyword guifg=' . s:keyword . ' gui=bold'
 
+" Strings
+execute 'highlight String guifg=' . s:str
 
+" Types
+execute 'highlight Type guifg=' . s:type
+
+" Identifiers / Variables
+execute 'highlight Identifier guifg=' . s:var
+
+" Warnings / Errors
+execute 'highlight WarningMsg guifg=' . s:warning . ' guibg=' . s:bg2
+
+" Visual selection
+execute 'highlight Visual guifg=' . s:bg1 . ' guibg=' . s:fg1
+
+" CursorLine highlighting
+execute 'highlight CursorLine guibg=' . s:bg2
+
+" StatusLine (active and inactive)
+execute 'highlight StatusLine guifg=' . s:fg4 . ' guibg=' . s:bg2 . ' gui=bold'
+execute 'highlight StatusLineNC guifg=' . s:var . ' guibg=' . s:bg1
+
+" Line numbers
+execute 'highlight LineNr guifg=' . s:fg4 . ' guibg=' . s:bg1
+execute 'highlight CursorLineNr guifg=' . s:fg1 . ' guibg=' . s:bg1 . ' gui=bold'
+
+" Search highlighting
+execute 'highlight Search guifg=' . s:warning . ' guibg=' . s:bg3
+execute 'highlight IncSearch guifg=' . s:warning . ' guibg=' . s:bg3
+
+" Matching parentheses
+execute 'highlight MatchParen guibg=' . s:warning
+
+" Vertical split
+execute 'highlight VertSplit guifg=' . s:fg3 . ' guibg=' . s:bg1
+
+" Tab line (if using GUI tabline plugins)
+execute 'highlight TabLine guifg=' . s:fg2 . ' guibg=' . s:bg1
+execute 'highlight TabLineSel guifg=' . s:fg1 . ' guibg=' . s:bg4 . ' gui=bold'
+
+" Popup menu (e.g., for completion)
+execute 'highlight Pmenu guifg=' . s:fg2 . ' guibg=' . s:bg1
+execute 'highlight PmenuSel guifg=' . s:fg3 . ' guibg=' . s:bg3
+
+" Underlined text (links, etc.)
+execute 'highlight Underlined guifg=' . s:const . ' gui=underline'
