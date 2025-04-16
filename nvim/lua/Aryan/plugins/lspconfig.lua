@@ -196,16 +196,11 @@ lspconfig.ols.setup ({
 
 -- SWIFT
 lspconfig.sourcekit.setup({
-    cmd = { "sourcekit-lsp" }, -- Ensure sourcekit-lsp is installed
+    cmd = { "sourcekit-lsp" },
     capabilities = capabilities,
     on_attach = on_attach,
     filetypes = { "swift", "objective-c", "objective-cpp" },
-    -- Look for .xcodeproj or .xcworkspace, fallback to .git
-    root_dir = lspconfig.util.root_pattern(
-        "*.xcworkspace",
-        "*.xcodeproj",
-        ".git"
-    ),
+    root_dir = lspconfig.util.root_pattern("Package.swift", ".git"),
 })
 
 lspconfig.efm.setup({

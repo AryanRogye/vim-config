@@ -62,3 +62,9 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     command = "silent! loadview"
 })
 
+
+vim.opt.autoread = true
+vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
+    pattern = "*",
+    command = "checktime"
+})

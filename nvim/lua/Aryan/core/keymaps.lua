@@ -44,7 +44,6 @@ vim.api.nvim_set_keymap('n', '<C-[>', '<Cmd>BufferPrevious<CR>', { noremap = tru
 vim.api.nvim_set_keymap('n', '<C-]>', '<Cmd>BufferNext<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>o', '<Cmd>BufferClose<CR>', { noremap = true, silent = true })
 
--- My Own Keymaps 
 vim.api.nvim_set_keymap('n', '<leader>cp', ':lua CopyPathAndOpen()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>cpp', ':lua OpenCopyPathAndOpen()<CR>', { noremap = true, silent = true })
 -- Functions for the keymaps
@@ -94,8 +93,9 @@ vim.api.nvim_create_user_command("TT", function()
 end, {})
 
 
-
-
+vim.keymap.set("n", "<leader>cc", function()
+    require("Aryan.core.utils").toggle_same_file_split()
+end, {})
 
 
 return M

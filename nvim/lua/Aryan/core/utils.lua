@@ -93,7 +93,28 @@ M.toggle_transparent_and_save = function()
         vim.api.nvim_set_hl(0, "SignColumn", { bg = "NONE" })
         vim.api.nvim_set_hl(0, "NormalNC", { bg = "NONE" })
         vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "LineNr", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "CursorLineNr", { bg = "NONE" })
         M.transparency_enabled = true
+    end
+end
+
+M.toggle_same_file_split = function()
+    local current_file = vim.api.nvim_buf_get_name(0)  -- Get the current file path
+    if current_file == "" then
+        print("No file detected.")
+        return
+    end
+
+    -- Ask for user input
+    local split_type = vim.fn.input("Split type (v/h): ")
+
+    if split_type == "v" then
+        vim.cmd("vsplit " .. vim.fn.fnameescape(current_file))
+    elseif split_type == "h" then
+        vim.cmd("split " .. vim.fn.fnameescape(current_file))
+    else
+        print("Invalid input. Use 'v' for vsplit or 'h' for hsplit.")
     end
 end
 

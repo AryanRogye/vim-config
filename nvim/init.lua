@@ -28,3 +28,17 @@ function ToggleCmp()
 end
 
 vim.api.nvim_set_keymap("n", "<leader>tc", "<cmd>lua ToggleCmp()<CR>", { noremap = true, silent = true })
+
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+--     pattern = { "*.lua" }, -- Detects any Lua file changes
+--     callback = function()
+--         for name, _ in pairs(package.loaded) do
+--             if name:match("^Aryan") then
+--                 package.loaded[name] = nil
+--             end
+--         end
+--         dofile(vim.fn.stdpath("config") .. "/init.lua")
+--         print("🔄 Neovim config reloaded!")
+--     end,
+-- })
+

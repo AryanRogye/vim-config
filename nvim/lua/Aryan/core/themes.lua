@@ -35,7 +35,7 @@ M.au = function()
 end
 
 M.drac = function()
-    vim.cmd [[colorscheme catppuccin-latte]]
+    vim.cmd [[colorscheme catppuccin-mocha]]
 end
 
 M.owl = function()
@@ -61,7 +61,6 @@ M.tokyonight = function()
 
     local current_index = 1 -- Start with the 2 cuz I like it
 
-    require("Aryan.plugins.lualine").load_line("tokyonight")
 
     vim.cmd [[colorscheme tokyonight-night]]
     function CycleTokyoNight()
@@ -89,7 +88,6 @@ M.zenburns0 = function()
     vim.cmd.colorscheme "zenburns"
 end
 M.co = function()
-    require("Aryan.plugins.lualine").load_line("reykjavik")
     vim.cmd.colorscheme "comfy"
     -- vim.cmd([[
     --     highlight Normal guibg=NONE ctermbg=NONE
@@ -170,7 +168,6 @@ M.lg = function()
     -- Apply initial theme
     vim.g.gruvbox_contrast_dark = themes[current_index]
 
-    require("Aryan.plugins.lualine").load_line("gruvbox")
     vim.cmd([[colorscheme gruvbox]])
 
     -- Keybindings
@@ -184,10 +181,14 @@ M.lg = function()
     vim.g.gruvbox_improved_strings = 0  -- did not like this
 end
 
+
+
 M.g2 = function()
     vim.cmd([[colorscheme gruvbox]])
 end
 
+
+-- Function for the Sakrua Theme
 M.ls = function()
     vim.opt.background = "dark"
     vim.cmd.colorscheme("sakura");
@@ -195,6 +196,8 @@ M.ls = function()
         highlight Normal guibg=NONE ctermbg=NONE
     ]])
 end
+
+
 -- Function to load Rose Pine 
 M.rp = function()
     vim.opt.termguicolors = true
@@ -206,7 +209,7 @@ M.rp = function()
         styles = {
             bold = true,
             italic = true,
-            transparency = true,
+            transparency = false,
         },
         groups = {
             border = "muted",
@@ -241,6 +244,9 @@ M.rp = function()
     })
     vim.cmd.colorscheme "rose-pine"
 end
+
+
+-- Oxocarbon Theme
 M.lo = function()
     vim.opt.termguicolors = true
     local ok, oxocarbon = pcall(require, "oxocarbon")
@@ -254,6 +260,8 @@ M.lo = function()
     ]])
 end
 
+
+-- Dark Flat Theme
 M.df = function()
     require("dark_flat").setup({
         transparent = false,
@@ -266,6 +274,20 @@ M.df = function()
     vim.cmd.colorscheme "dark_flat"
 end
 
+-- Jonathan Blow Theme I made
+M.jn = function()
+    vim.cmd [[ colorscheme jn ]]
+end
+
+
+-- Github Theme
+M.github = function()
+    -- vim.cmd('colorscheme github_dark_high_contrast')
+    -- vim.cmd('colorscheme github_dark')
+    vim.cmd('colorscheme github_dark_default')
+end
+
+-- Cyberdream Theme
 M.lc = function ()
     local config = {
         lazy = false,
@@ -277,8 +299,8 @@ M.lc = function ()
         cache = false,
 
         theme = {
-            variant = "dark", 
-            saturation = 1, 
+            variant = "dark",
+            saturation = 1,
             highlights = {
                 ColorColumn = {},
             },

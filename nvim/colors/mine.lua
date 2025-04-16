@@ -7,7 +7,7 @@ local hl = function(group, opts)
 end
 
 -- Set background and text
-hl("Normal", { bg = "#052b2a", fg = "#b6c2bc" })
+hl("Normal", { bg = "#090919", fg = "#b6c2bc" })
 
 -- Set comments to bright green
 hl("Comment", { fg = "#00ff00", italic = true }) 
